@@ -1,14 +1,21 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import NotFound from "./components/NotFound";
+import SignIn from "./pages/SignIn";
+import SignOut from "./pages/SignOut";
+
 const App = () => {
-  const data = {
-    name: "John Doe",
-    age: 25,
-  };
-  console.log(data);
   return (
-    <div>
-      App
-      <h2 className="text-red-500"> Name is {data.name}</h2>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignOut />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
