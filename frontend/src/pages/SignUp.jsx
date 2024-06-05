@@ -25,7 +25,7 @@ const SignUp = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (data.success === false) {
+      if (!data.statusCode === 200 || !data.user) {
         setError(data.message);
         setLoading(false);
         return toast.error(error);

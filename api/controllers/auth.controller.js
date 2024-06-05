@@ -50,7 +50,21 @@ class AuthController {
       });
       await newUser.save();
       const omittedUser = omit(newUser._doc, ["password"]);
-      res.status(201).json({ message: "User registered", user: omittedUser });
+      const token = jwt.sign(
+        {
+          id: newUser._id,
+        },
+        process.env.JWT_SECRET
+      );
+
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          sameSite: "strict",
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
+        .json({ message: "User  Registered Successfully!", user: omittedUser });
     } catch (error) {
       next(error);
     }
